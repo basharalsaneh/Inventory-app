@@ -13,7 +13,7 @@ const protect = asyncHandler(async (req, res, next) => {
     // Verify Token
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     // Get user from the token
-    user = await User.findById(verified.id).select("-password");
+    const user = await User.findById(verified.id).select("-password");
     if (!user) {
       throw new Error("No user with specified id");
     }
