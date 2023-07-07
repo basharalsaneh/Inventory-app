@@ -165,7 +165,33 @@ const loginStatus = asyncHandler(async (req, res) => {
     return res.json(true);
   }
   return res.json(false);
-  
+});
+
+// Update user
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const { name, email, photo, phone, bio } = user;
+    user.email = email;
+    user.name = req.body.name || name;
+    user.photo = req.body.photo || photo;
+    user.phone = req.body.phone || phone;
+    user.bio = req.body.bio || bio;
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updateUser._id,
+      name: updateUser.name,
+      email: updateUser.email,
+      photo: updateUser.photo,
+      phone: updateUser.phone,
+      bio: updateUser.bio,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 module.exports = {
@@ -174,4 +200,5 @@ module.exports = {
   logout,
   getUser,
   loginStatus,
+  updateUser,
 };
