@@ -7,6 +7,8 @@ const {
   loginStatus,
   updateUser,
   changePassword,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/UserController");
 const protect = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -16,7 +18,9 @@ router.post("/login", loginUser);
 router.get("/logout", logout);
 router.get("/getuser", protect, getUser);
 router.get("/loggedin", loginStatus);
-router.patch("/updateuser", protect, updateUser); // Don't forget to add protect
-router.patch("/changepassword", protect, changePassword); // Don't forget to add protect
+router.patch("/updateuser", protect, updateUser);
+router.patch("/changepassword", protect, changePassword);
+router.post("/forgotpassword", forgotPassword);
+router.put("/resetpassword/:resetToken", resetPassword);
 
 module.exports = router;
