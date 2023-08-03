@@ -8,8 +8,8 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(
       null,
-      new Date().toISOSTRING().replace(/:/g, "-") + "-" + file.originalname
-    );
+      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
+    ); // 23/08/2022
   },
 });
 
@@ -42,4 +42,3 @@ const fileSizeFormatter = (bytes, decimal) => {
 };
 
 module.exports = { upload, fileSizeFormatter };
-
